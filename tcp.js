@@ -1,22 +1,10 @@
-const net = require('net');
-const server = net.createServer((socket) => {
-  // 'connection' listener
-  function zeroFill (i) {
-    return (i < 10 ? '0' : '') + i
-  }
+const http = require('http');
+const fs = require('fs');
 
-  function now () {
-    var d = new Date()
-    return d.getFullYear() + '-' +
-      zeroFill(d.getMonth() + 1) + '-' +
-      zeroFill(d.getDate()) + ' ' +
-      zeroFill(d.getHours()) + ':' +
-      zeroFill(d.getMinutes())
-  }
-
-  socket.end(now() + "\n");
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {'content-type': 'text/plain'});
+  fs.createReadStream(process.argv[3]).pipe(res);
 });
 
 
-server.listen(process.argv[2], () => {
-});
+server.listen(Number(process.argv[2]));
