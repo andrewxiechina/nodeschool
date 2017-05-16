@@ -1,8 +1,16 @@
-var fs = require('fs');
+const fs = require('fs');
+const path = require('path');
 
-fs.readFile(process.argv[2], (err,data) => {
+fs.readdir(process.argv[2], (err,data) => {
   if(err){
     console.log(err);
   }
-  console.log(data.toString().split("\n").length - 1);
+  var extname = "md";
+
+  var result = data;
+  result.forEach((i) => {
+    if(path.extname(i) === "." + extname){
+      console.log(i);
+    }
+  });
 });
