@@ -1,16 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+var dir  = require('./dir.js')
+var directory = process.argv[2]
+var filterStr = process.argv[3]
 
-fs.readdir(process.argv[2], (err,data) => {
-  if(err){
-    console.log(err);
-  }
-  var extname = "md";
+dir(directory, filterStr, function(err, list){
+  if (err) console.error('There was an error:', err);
 
-  var result = data;
-  result.forEach((i) => {
-    if(path.extname(i) === "." + extname){
-      console.log(i);
-    }
-  });
+  list.forEach((item) => {
+    console.log(item);
+  })
 });
