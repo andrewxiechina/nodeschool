@@ -1,9 +1,7 @@
 var http = require('http');
 var map = require('through2-map');
 var server = http.createServer(function (req, res) {
-  if (req.method !== 'POST') {
-    return res.end('send me a POST\n')
-  }
+  res.writeHead(200, { 'Content-Type': 'application/json' })  
 
   req.pipe(map((chunk) => {
     return chunk.toString().toUpperCase();
